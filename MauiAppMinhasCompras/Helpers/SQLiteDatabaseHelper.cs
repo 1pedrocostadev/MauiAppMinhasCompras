@@ -16,11 +16,11 @@ namespace MauiAppMinhasCompras.Helpers
         {
             return _conn.InsertAsync(p);
         }
-        public Task<List<Produto>> UpdateProduto(Produto p)
+        public Task<List<Produto>> Update(Produto p)
         {
             string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=? WHERE Id =?";
-            return _conn.QueryAsync<p>(
-                sql p.Descricao, p.Quantidade, p.Preco, p.Id
+               return _conn.QueryAsync<Produto>(
+                sql, p.Descricao, p.Quantidade, p.Preco, p.Id
                 );
         }
         public Task <int> Delete(int id)
@@ -35,7 +35,7 @@ namespace MauiAppMinhasCompras.Helpers
         public Task<List<Produto>> Search (string q)
         {
             string sql = "SELECT * Produto WHERE Descricao '%" + q + "%'";
-            return _conn.QueryAsync<p>(sql);
+            return _conn.QueryAsync<Produto>(sql);
         }
     }
 }
