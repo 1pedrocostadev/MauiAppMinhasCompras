@@ -11,9 +11,9 @@
     </ContentPage.ToolbarItems>
     
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label >
+            
+        </Label>
+            
     </VerticalStackLayout>
 </ContentPage>
