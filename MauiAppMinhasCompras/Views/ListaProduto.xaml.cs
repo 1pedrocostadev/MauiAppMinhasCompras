@@ -81,8 +81,8 @@ public partial class ListaProduto : ContentPage
     {
         try
             {
-           MenuItem selecionado = sender as MenuItem;
-            Produto p = selecionado.BindingContext as Produto;
+           MenuItem? selecionado = sender as MenuItem;
+            Produto? p = selecionado.BindingContext as Produto;
 
             bool confirm = await DisplayAlert (
                 "Tem certeza?", $"Remover {p.Descricao}?", "Sim", "Não");
@@ -108,7 +108,7 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
-            Produto p = e.SelectedItem as Produto;
+            Produto? p = e.SelectedItem as Produto;
             
             Navigation.PushAsync(new Views.EditarProduto
             { 
