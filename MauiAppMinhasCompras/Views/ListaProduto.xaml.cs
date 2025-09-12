@@ -144,4 +144,26 @@ public partial class ListaProduto : ContentPage
             lst_produtos.IsRefreshing = false;
         }
 }
+
+    private async void picker_filtro_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string categoria = picker_filtro.SelectedItem.ToString() ?? "Todos";
+        try
+        {
+            lista.Clear();
+            List<Produto> tmp = await App.Db.GetByCategoria(categoria);
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
     }
+
+    private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        List<(string Categoria, double Total)> totalPorCategoria = (List<(string Categoria, double Total)>)await App.Db.GetTotalByCategoria();
+        string msg = string.Join("\n", totalPorCategoria.Select(static t => $"{t.Categoria}: {t.Total:C2}"));
+        await DisplayAlert("Relatório por Categoria", msg, "OK");
+    }
+}
