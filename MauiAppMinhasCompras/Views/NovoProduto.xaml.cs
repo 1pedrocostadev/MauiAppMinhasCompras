@@ -23,8 +23,8 @@ public partial class NovoProduto : ContentPage
 			};
 			await App.Db.insertProduto(p);
 			await DisplayAlert("Sucesso!", "Regisro Inserido", "OK");
-
-		} catch(Exception ex)
+			await Navigation.PopAsync();
+        } catch(Exception ex)
 		{
 			await DisplayAlert("Ops", ex.Message, "OK");
 		}

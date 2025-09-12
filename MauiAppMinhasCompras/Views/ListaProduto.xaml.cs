@@ -44,20 +44,25 @@ public partial class ListaProduto : ContentPage
         }
 }
 
-    private async void txt_seach_TextChanged(object sender, TextChangedEventArgs e)
+    private async void Txt_seach_TextChanged(object sender, TextChangedEventArgs e)
     {
         try
-        { 
-       string q = e.NewTextValue;
+        {
+            string q = e.NewTextValue;
 
-        lista.Clear();
-        
-        List<Produto> tmp = await App.Db.Search(q);
+            lst_produtos.IsRefreshing = true;
 
-        tmp.ForEach(i => lista.Add(i));
-            } catch (Exception ex)
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.Search(q);
+
+            tmp.ForEach(i => lista.Add(i));
+        } catch (Exception ex)
         {
             await DisplayAlert("Ops", ex.Message, "OK");
+        } finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -120,4 +125,23 @@ public partial class ListaProduto : ContentPage
               DisplayAlert("Ops", ex.Message, "OK");
         }
     }
+
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+        try
+        {
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.GetAll();
+
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ops", ex.Message, "OK");
+        } finally        
+        {
+            lst_produtos.IsRefreshing = false;
+        }
 }
+    }
